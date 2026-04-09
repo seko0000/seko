@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Haley</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="music-popup-overlay show" id="musicPopup">
+  <div class="music-popup">
+    <div class="music-popup-kicker">instrumental music</div>
+    <h3>Bu sehifenin musiqisi</h3>
+    <p>Bu sehife ucun ayrilan instrumental musiqini acmaq isteyirsen, yoxsa sessiz davam etmek isteyirsen?</p>
+    <div class="music-popup-actions">
+      <button class="secondary" type="button" onclick="closeMusicPopup(false)">Bagli qalsin</button>
+      <button class="primary" type="button" onclick="closeMusicPopup(true)">Musiqini ac</button>
+    </div>
+  </div>
+</div>
+<audio id="pageAudio" class="page-audio" preload="auto" loop>
+  <source src="Love Story by Indila(Ethereal Instrumental Full Version).mp3" type="audio/mpeg">
+</audio>
+
+  <div class="page">
+    <aside class="sidebar">
+      <div class="brand"></div>
+      <nav class="side-links">
+        <a href="index.html" class="active">Sevdiyim</a>
+<a href="hislerim.html" class="">Heyatim</a>
+<a href="edeceklerim.html" class="">Herseyim</a>
+<a href="niyyetim.html" class="">Meleyim</a>
+<a href="mektub.html" class="">Qelbim</a>
+      
+        <a href="latin-arzular.html">Sirrim</a>
+      </nav>
+      <div class="side-note">for haley</div>
+    </aside>
+    <main class="content">
+      
+        <section class="hero">
+          <div class="copy">
+            <div class="eyebrow">for haley</div>
+            <h1 class="hero-title">Our Love Story</h1>
+            <p class="hero-sub">The feeling I could not keep inside anymore and the quiet way you became the deepest part of my heart.</p>
+            <div class="hero-card">
+              <p>Səni ilk tanıdığım günlər yadımda çox aydın qalıb sanki dünən olub kimi hiss edirəm o vaxtlar hər şey çox sadə idi amma eyni zamanda çox xüsusi idi səninlə danışanda vaxtın necə keçdiyini hiss etmirdim adi bir mesaj belə mənim üçün günün ən yaxşı anına çevrilirdi sən sadəcə bir insan deyildin sən mənim günümün səbəbi idin gülməyimin səbəbi idin və bəlkə də ən önəmlisi özüm kimi ola bildiyim nadir insanlardan biri idin sənin yanında rol etmirdim özümü gizlətmirdim necə var idimsə elə qəbul edilirdim və bu hiss çox nadir olur insan həyatında</p>
+              <p>Sənin baxışların sənin danışığın sənin sadə sözlərin belə mənim üçün fərqli idi mən səni sadəcə bəyəndiyim üçün yox sən olduğun kimi olduğun üçün sevməyə başlamışdım səninlə keçirdiyim hər an mənim üçün dəyərli idi və bəlkə də o vaxt bunu kifayət qədər ifadə edə bilmirdim amma indi geriyə baxanda başa düşürəm ki o günlər mənim həyatımın ən sakit amma ən xoşbəxt dövrlərindən biri idi</p>
+            
+            <a class="cta" href="hislerim.html">Read what I feel</a>
+<p>Bu sehife ucun audio faylin adi <strong>home.mp3</strong> olmalidir. MP3 faylini bu HTML fayllarla eyni qovluqda saxla.</p>
+            <audio id="pageAudio" class="page-audio">
+              <source src="Love Story by Indila(Ethereal Instrumental Full Version).mp3" type="audio/mpeg">
+              Brauzer audio elementini desteklemir.
+            </audio>
+          </div>
+
+      </section>
+        
+    </main>
+  </div>
+
+<script>
+(function() {
+  try {
+    const allKeys = ['home.mp3','hislerim.mp3','edeceklerim.mp3','niyyetim.mp3','mektub.mp3','latin.mp3'];
+    allKeys.forEach(function(key) {
+      if (key !== 'home.mp3') {
+        localStorage.removeItem('autoplay_' + key);
+      }
+    });
+  } catch (e) {}
+})();
+
+const popupEl = document.getElementById('musicPopup');
+const audioEl = document.getElementById('pageAudio');
+
+function closeMusicPopup(shouldPlay) {
+  popupEl.classList.remove('show');
+  if (shouldPlay) {
+    try {
+      localStorage.setItem('autoplay_home.mp3', '1');
+    } catch(e) {}
+    const playPromise = audioEl.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.catch(function() {});
+    }
+  } else {
+    try {
+      localStorage.removeItem('autoplay_home.mp3');
+    } catch(e) {}
+    audioEl.pause();
+    audioEl.currentTime = 0;
+  }
+}
+
+window.addEventListener('pageshow', function() {
+  popupEl.classList.add('show');
+  audioEl.pause();
+  audioEl.currentTime = 0;
+});
+
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    audioEl.pause();
+  }
+});
+
+window.addEventListener('beforeunload', function() {
+  audioEl.pause();
+  audioEl.currentTime = 0;
+});
+</script>
+
+</body>
+</html>

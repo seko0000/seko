@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uzun mektub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="music-popup-overlay show" id="musicPopup">
+  <div class="music-popup">
+    <div class="music-popup-kicker">instrumental music</div>
+    <h3>Bu sehifenin musiqisi</h3>
+    <p>Bu sehife ucun ayrilan instrumental musiqini acmaq isteyirsen, yoxsa sessiz davam etmek isteyirsen?</p>
+    <div class="music-popup-actions">
+      <button class="secondary" type="button" onclick="closeMusicPopup(false)">Bagli qalsin</button>
+      <button class="primary" type="button" onclick="closeMusicPopup(true)">Musiqini ac</button>
+    </div>
+  </div>
+</div>
+<audio id="pageAudio" class="page-audio" preload="auto" loop>
+  <source src="Rauf Faik - вечера (Instrumental REMAKE prod. GBass).mp3" type="audio/mpeg">
+</audio>
+
+  <div class="page">
+    <aside class="sidebar">
+      <div class="brand"></div>
+      <nav class="side-links">
+        <a href="index.html" class="">Sevdiyim</a>
+<a href="hislerim.html" class="">Heyatim</a>
+<a href="edeceklerim.html" class="">Herseyim</a>
+<a href="niyyetim.html" class="">Meleyim</a>
+<a href="mektub.html" class="active">Qelbim</a>
+      
+        <a href="latin-arzular.html">Sirrim</a>
+      </nav>
+      <div class="side-note">for haley</div>
+    </aside>
+    <main class="content">
+      
+        <section class="section-page">
+          <div class="section-top">
+            <div>
+              <div class="section-kicker">for haley</div>
+              <h1 class="section-title">Uzun mektub</h1>
+              <p class="section-intro">Bu sehife bir etiraf kimidir: sozlere sigmayan, amma artıq icimde de susmayan hissin daha uzun ve daha səmimi formasi.</p>
+            </div>
+            <a class="back-link" href="index.html">Sevdiyimye qayit</a>
+          </div>
+          <div class="long-card">
+              <p>Bu müddət ərzində özüm haqqında çox şey düşündüm nəyi səhv etdim necə daha yaxşı ola bilərdim və nəyi dəyişməliyəm</p>
+              <p>Mən başa düşdüm ki birini həyatında saxlamaq istəyirsənsə sadəcə hiss etmək kifayət deyil onu göstərmək lazımdır dəyər verdiyini hiss etdirmək lazımdır yanında olmaq lazımdır və ən əsası onu itirməyin necə bir şey olduğunu yaşamadan əvvəl bunun qədrini bilmək lazımdır</p>
+              <p>Mən dəyişdim bəlkə də hər şeydə yox amma ən azından düşüncə olaraq dəyişdim artıq bəzi şeyləri daha aydın görürəm daha çox anlayıram və daha çox qiymət verməyi bacarıram</p>
+              <p>Bu yazdıqlarım sadəcə söz deyil bu mənim düşündüklərim və hiss etdiklərimdir</p>
+            
+
+<script>
+(function() {
+  try {
+    const allKeys = ['home.mp3','hislerim.mp3','edeceklerim.mp3','niyyetim.mp3','mektub.mp3','latin.mp3'];
+    allKeys.forEach(function(key) {
+      if (key !== 'mektub.mp3') {
+        localStorage.removeItem('autoplay_' + key);
+      }
+    });
+  } catch (e) {}
+})();
+
+const popupEl = document.getElementById('musicPopup');
+const audioEl = document.getElementById('pageAudio');
+
+function closeMusicPopup(shouldPlay) {
+  popupEl.classList.remove('show');
+  if (shouldPlay) {
+    try {
+      localStorage.setItem('autoplay_mektub.mp3', '1');
+    } catch(e) {}
+    const playPromise = audioEl.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.catch(function() {});
+    }
+  } else {
+    try {
+      localStorage.removeItem('autoplay_mektub.mp3');
+    } catch(e) {}
+    audioEl.pause();
+    audioEl.currentTime = 0;
+  }
+}
+
+window.addEventListener('pageshow', function() {
+  popupEl.classList.add('show');
+  audioEl.pause();
+  audioEl.currentTime = 0;
+});
+
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    audioEl.pause();
+  }
+});
+
+window.addEventListener('beforeunload', function() {
+  audioEl.pause();
+  audioEl.currentTime = 0;
+});
+</script>
+
+</body>
+</html>
